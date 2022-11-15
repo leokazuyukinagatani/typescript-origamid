@@ -28,6 +28,7 @@ function isCurso(value: unknown): value is Curso{
       return false
     }
 }
+
 function handleCursos(data: unknown){
   if(data instanceof Array){
     data.filter(isCurso).forEach( (item) => 
