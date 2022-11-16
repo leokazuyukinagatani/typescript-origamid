@@ -1,7 +1,10 @@
 "use strict";
-let chave;
-let chave1;
-function coordenadas(x, y) {
-    return { x, y };
+// interface Produto {
+//   nome: string
+//   preco: number
+//   novo: boolean
+// }
+function selecionar(seletor) {
+    return document.querySelector(seletor);
 }
-let coord;
+selecionar('a');
