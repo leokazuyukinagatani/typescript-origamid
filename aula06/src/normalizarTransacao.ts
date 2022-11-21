@@ -23,7 +23,7 @@ declare global {
   interface ITransaction {
     nome: string
     id: number
-    data: string
+    data: Date
     status: TransactionStatus
     email: string
     moeda: string
@@ -32,12 +32,11 @@ declare global {
     novo: boolean
   }
 }
-export function normalizarTransacao(transaction:ITransactionAPI) {
+export function normalizarTransacao(transaction:ITransactionAPI):ITransaction {
   return {
     nome: transaction.Nome,
     id: transaction.ID,
     data: stringToDate(transaction.Data),
-    dataNormal: transaction.Data,
     status: transaction.Status,
     email: transaction.Email,
     moeda: transaction["Valor (R$)"],
