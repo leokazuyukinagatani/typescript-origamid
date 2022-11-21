@@ -1,3 +1,4 @@
+import { CountList } from "./countBy";
 import { fetchTransactions } from "./fetchData";
 import { normalizarTransacao } from "./normalizarTransacao";
 import { Statistics } from "./Statistics";
@@ -10,27 +11,34 @@ async function handleData() {
   if (!data) return;
   const transactions = data.map(normalizarTransacao);
   fillTable(transactions);
-  return transactions;
+  fillStatistics(transactions);
+}
+
+function fillList(lista: CountList, containerId: string): void {
+  const containerElement = document.getElementById(containerId);
+  if (containerElement) {
+    Object.keys(lista).forEach((key) => {
+      containerElement.innerHTML += `<p>${key}: ${lista[key]} </p>`;
+    });
+  }
 }
 
 function fillStatistics(transactions: ITransaction[]): void {
   const data = new Statistics(transactions);
-  console.log(data.total);
-  const tabela = document.querySelector("#statistics tbody");
 
-  if (!tabela) return;
-  tabela.innerHTML += `
-  <tr>
-    <td>${data.total.toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    })}
-    </td>
-    <td>
-      
-    </td>
-  </tr>
-  `;
+  fillList(data.pagamento, "pagamento");
+  fillList(data.status, "status");
+
+  const totalElement = document.querySelector<HTMLElement>("#total span");
+  if (!totalElement) return;
+  totalElement.innerText += data.total.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
+  const diaElement = document.querySelector<HTMLElement>("#dia span");
+  if (!diaElement) return;
+  diaElement.innerText = data.melhorDia[0]
+
 }
 
 function fillTable(transactions: ITransaction[]): void {
@@ -48,9 +56,6 @@ function fillTable(transactions: ITransaction[]): void {
       <td>${transaction.status}</td>
     </tr>`;
   });
-  // transactions.forEach()
 }
 
-const transactions = await handleData();
-console.log(transactions);
-if (transactions) fillStatistics(transactions);
+handleData();
