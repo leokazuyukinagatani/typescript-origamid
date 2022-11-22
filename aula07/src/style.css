@@ -2,6 +2,14 @@ body {
   font-family: sans-serif;
   margin: 20px;
 }
+body.paused {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  touch-action: manipulation;
+}
 
 img,
 video {
@@ -12,6 +20,13 @@ video {
 h1 {
   text-align: center;
   font-size: 1.5rem;
+}
+
+#slide {
+  display: grid;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #000;
 }
 
 #slide-elements {
@@ -30,9 +45,7 @@ h1 {
   visibility: visible;
 }
 
-#slide {
-  display: grid;
-}
+
 
 #slide-controls {
   grid-area: 1/1;
