@@ -8,5 +8,5 @@ console.log(container);
 console.log(elements);
 console.log(controls);
 if (container && elements && controls && elements.children.length) {
-  new Slide(container, Array.from(elements.children), controls, 3000);
+  new Slide(container, Array.from(elements.children), controls, 5000);
 }
